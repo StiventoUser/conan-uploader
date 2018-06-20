@@ -38,7 +38,7 @@ def create_package(package_info, owner):
 
 
 def upload_package(package_info, org_name, user_name):
-    command = "conan upload \"{}\" -r {}".format(package_info["name"], "{}")
+    command = "conan upload \"{}*\" -r {} --all".format(package_info["name"], "{}")
 
     if len(user_name) != 0:
         run(command.format(user_name))
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     org_name = input("Organization remote name: ")
 
     for package in packages:
-        user_name = input("User to upload (empty to skip): ")
+        user_name = input("User to upload {} (empty to skip): ".format(package["name"]))
 
         create_package(package, user_name if len(user_name) != 0 else org_name)
         upload_package(package, org_name, user_name)
