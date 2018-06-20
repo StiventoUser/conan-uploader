@@ -5,13 +5,13 @@ from subprocess import run
 conanWinSettings = [
     {"build_type": "Debug", "arch": "x86_64", "compiler": "Visual Studio", "compiler.runtime": "MTd", "compiler.version": "14", "os": "Windows"},
     {"build_type": "Release", "arch": "x86_64", "compiler": "Visual Studio", "compiler.runtime": "MT", "compiler.version": "14", "os": "Windows"},
-    {"build_type": "Debug", "arch": "x64", "compiler": "Visual Studio", "compiler.runtime": "MTd", "compiler.version": "14", "os": "Windows"},
-    {"build_type": "Release", "arch": "x64", "compiler": "Visual Studio", "compiler.runtime": "MT", "compiler.version": "14", "os": "Windows"},
+    {"build_type": "Debug", "arch": "x86", "compiler": "Visual Studio", "compiler.runtime": "MTd", "compiler.version": "14", "os": "Windows"},
+    {"build_type": "Release", "arch": "x86", "compiler": "Visual Studio", "compiler.runtime": "MT", "compiler.version": "14", "os": "Windows"},
 
     {"build_type": "Debug", "arch": "x86_64", "compiler": "Visual Studio", "compiler.runtime": "MTd", "compiler.version": "15", "os": "Windows"},
     {"build_type": "Release", "arch": "x86_64", "compiler": "Visual Studio", "compiler.runtime": "MT", "compiler.version": "15", "os": "Windows"},
-    {"build_type": "Debug", "arch": "x64", "compiler": "Visual Studio", "compiler.runtime": "MTd", "compiler.version": "15", "os": "Windows"},
-    {"build_type": "Release", "arch": "x64", "compiler": "Visual Studio", "compiler.runtime": "MT", "compiler.version": "15", "os": "Windows"}
+    {"build_type": "Debug", "arch": "x86", "compiler": "Visual Studio", "compiler.runtime": "MTd", "compiler.version": "15", "os": "Windows"},
+    {"build_type": "Release", "arch": "x86", "compiler": "Visual Studio", "compiler.runtime": "MT", "compiler.version": "15", "os": "Windows"}
 ]
 
 
