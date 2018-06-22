@@ -15,7 +15,7 @@ Builds and uploads packages to the user/organization package repository.
             "id": "vc14x64d",
             "args": {"build_type": "Debug", "arch": "x86_64", "compiler": "Visual Studio", "compiler.runtime": "MTd", "compiler.version": "14", "os": "Windows"}
         },
-    ]
+    ],
     "primary": "primary_name",
     "packages": [
         {
