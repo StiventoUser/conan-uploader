@@ -7,7 +7,8 @@ import platform
 import subprocess
 import tempfile
 import time
-from colorama import init, Fore, Back, Style
+import colorama
+from colorama import Fore, Back, Style
 
 
 def wintolin(path):
@@ -123,7 +124,7 @@ def get_package_conan_info(package_path):
     return result
 
 
-def get_package__build_data(repo_path, package, primary_name, build_configs):
+def get_package_build_data(repo_path, package, primary_name, build_configs):
     build_data = get_package_conan_info(repo_path)
 
     build_data['thread'] = package['thread']
@@ -165,7 +166,7 @@ def upload_package(build_data):
 
 
 if __name__ == '__main__':
-    init(autoreset=True)
+    colorama.init(autoreset=True)
 
     with open('packages,json') as f:
         config = json.load(f)
@@ -181,7 +182,7 @@ if __name__ == '__main__':
 
         repo_path = install_repo(package)
 
-        build_data = get_package__build_data(repo_path, package, primary_name, build_configs)
+        build_data = get_package_build_data(repo_path, package, primary_name, build_configs)
 
         print(Fore.CYAN + "Package info: {}".format(build_data))
 
