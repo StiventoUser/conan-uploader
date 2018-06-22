@@ -31,7 +31,7 @@ def delete_folder(pth) :
     pth.rmdir()
 
 
-def run_command(source_command, target_system = None):
+def run_command(source_command, target_system = None, check = False):
     if not target_system:
         target_system = platform.system()
 
@@ -73,14 +73,21 @@ def run_command(source_command, target_system = None):
                 if not line:
                     return_code = child.poll()
                     if return_code is not None:
-                        if return_code != 0:
+                        if check and return_code != 0:
                             raise Exception("Command return {} exit status.".format(return_code))
-                        return
+                        return return_code
 
                     time.sleep(1)
                     f.seek(where)
                 else:
                     print(line.rstrip())
+
+
+def get_change_default_gcc(version):
+    if run_command('command -v gcc-{0} && command -v g++-{0}'.format(version), target_system='Linux') == 0:
+        return 'export CC="$(which gcc-{0})" && export CXX="$(which g++-{0})" && '.format(version)
+
+    return ''
 
 def load_configs(obj):
     configs = []
@@ -97,6 +104,7 @@ def load_configs(obj):
         configs.append({ 'id': configObj['id'], 'os': target_os, 'args': configObj['args'] })
 
     return configs
+
 
 def install_repo(package):
     match = re.search(':\/\/.+?\/.+?\/(.+)', package['url'])
@@ -135,7 +143,7 @@ def get_package_build_data(repo_path, package, primary_name, build_configs):
     build_data['owner'] = secondary_name if secondary_name else primary_name
 
     build_data['configs'] = [c for c in build_configs if c['id'] in package['configs']]\
-        if package['configs'] else build_configs
+        if 'configs' in package else build_configs
 
     return build_data
 
@@ -150,6 +158,9 @@ def create_package(build_data):
 
         conan_command = ' '.join(
             ['conan', 'create', '.', '{}/{}'.format(owner, thread), *params, '--build=' + name, '--build=missing'])
+
+        if 'compiler.version' in config['args'] and config['os'] == 'Linux':
+            conan_command = get_change_default_gcc(config['args']['compiler.version']) + conan_command
 
         run_command(conan_command, config['os'])
 
